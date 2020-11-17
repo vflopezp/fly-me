@@ -28,5 +28,4 @@ class AirplanePolicy < ApplicationPolicy
   def destroy?
     edit?
   end
-
 end
