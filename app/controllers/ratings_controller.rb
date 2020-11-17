@@ -1,9 +1,11 @@
 class RatingsController < ApplicationController
   def new
     @rating = Rating.new
+    authorize @rating
   end
 
   def create
+    authorize @rating
     if @rating.create(rating_params)
       redirect_to @rating.airplane, notice: "Thank you for your rating"
     else

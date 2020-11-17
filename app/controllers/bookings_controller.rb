@@ -7,11 +7,15 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
+    authorize @booking
   end
 
-  def edit; end
+  def edit
+    authorize @booking
+  end
 
   def update
+    authorize @booking
     if @booking.update(booking_params)
       redirect_to bookings_path, notice: "Your booking has been updated"
     else
@@ -20,6 +24,7 @@ class BookingsController < ApplicationController
   end
 
   def destroy
+    authorize @booking
     @booking.destroy
     redirect_to bookings_path, notice: "Your booking has been deleted"
   end

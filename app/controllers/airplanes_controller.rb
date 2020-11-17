@@ -4,14 +4,18 @@ class AirplanesController < ApplicationController
     @airplanes = Airplane.all
   end
 
-  def show; end
+  def show
+    authorize @airplane
+  end
 
   def new
     @airplane = Airplane.new
+    authorize @airplane
   end
 
   def create
     @airplane = Airplane.new(airplane_params)
+    authorize @airplane
     if @airplane.save
       redirect_to @airplane, notice: "Your airplane has been created"
     else
@@ -19,9 +23,12 @@ class AirplanesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @airplane
+  end
 
   def update
+    authorize @airplane
     if @airplane.update(airplane_params)
       redirect_to @airplane, notice: "Your airplane details have been updated"
     else
@@ -30,6 +37,7 @@ class AirplanesController < ApplicationController
   end
 
   def destroy
+    authorize @airplane
     @airplane.destroy
     redirect_to airplanes_path, notice: "Your airplane has been deleted"
   end
