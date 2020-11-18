@@ -1,7 +1,11 @@
 class AirplanesController < ApplicationController
   before_action :set_airplane, only: %i[show edit update destroy]
   def index
-    @airplanes = Airplane.all
+    if params[:model]
+      @airplanes = Airplane.where("model LIKE ?", "%#{params[:model]}%")
+    else
+      @airplanes = Airplane.all
+    end
   end
 
   def show
