@@ -1,0 +1,37 @@
+.signup-page {
+  background-image: url("https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.big-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.text-holder {
+  color: white;
+}
+
+.btn {
+  width: 100%;
+  border-radius: 8px;
+  padding: auto 5px;
+  font-weight: bold;
+}
+
+
+#new_user > div.form-actions.btn.btn-light > input {
+  padding-top: 0;
+  padding-bottom: 0;
+}
