@@ -25,9 +25,15 @@
       <%= f.error_notification %>
 
       <div class="form-inputs">
+        <%= f.input :first_name,
+                    required: true,
+                    autofocus: true %>
+        <%= f.input :last_name,
+                    required: true %>
+        <%= f.input :passport_number,
+                    required: true %>
         <%= f.input :email,
                     required: true,
-                    autofocus: true,
                     input_html: { autocomplete: "email" }%>
         <%= f.input :password,
                     required: true,
@@ -36,6 +42,8 @@
         <%= f.input :password_confirmation,
                     required: true,
                     input_html: { autocomplete: "new-password" } %>
+        <%= f.input :role, collection: ["owner","renter"], required: true %>
+
       </div>
 
       <div class="form-actions btn btn-light">
