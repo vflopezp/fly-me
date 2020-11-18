@@ -18,7 +18,15 @@ class AirplanePolicy < ApplicationPolicy
   end
 
   def edit?
-    record.owner == user
+    if user.role == "owner"
+      if record.class != Class
+        record.owner == user
+      else
+        record.find_by(owner: user).owner == user
+      end
+    else
+      false
+    end
   end
 
   def update?

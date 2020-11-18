@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   devise_scope :user do
-      root to: 'devise/sessions#new'
+      root to: "airplanes#index"
       # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   end
 
@@ -13,3 +13,4 @@ Rails.application.routes.draw do
   resources :bookings, only: [:index, :destroy, :edit, :update]
 
 end
+# 'devise/sessions#new'

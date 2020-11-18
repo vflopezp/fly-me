@@ -10,6 +10,7 @@ class AirplanesController < ApplicationController
 
   def show
     authorize @airplane
+    @booking = Booking.new
   end
 
   def new

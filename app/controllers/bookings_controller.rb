@@ -10,6 +10,19 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def create
+    @booking = Booking.new(booking_params)
+    @airplane = Airplane.find(params[:airplane_id])
+    @booking.airplane = @airplane
+    @booking.renter = current_user
+    authorize @booking
+    if @booking.save
+      redirect_to airplane_path(@booking.airplane), notice: "Your booking has been created"
+    else
+      render 'airplanes/show'
+    end
+  end
+
   def edit
     authorize @booking
   end

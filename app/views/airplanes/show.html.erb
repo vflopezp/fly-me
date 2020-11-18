@@ -12,7 +12,11 @@
   </div>
 </div>
 <!-- MAIN CONTENT -->
-<div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @airplane.photos.first.key %>); background-size: cover; background-position: center;">
+<% if @airplane.photos.attached? %>
+  <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @airplane.photos.first.key %>); background-size: cover; background-position: center;">
+<% else %>
+    <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib); background-size: cover; background-position: center;">
+<% end %>
   <div class="container">
     <p id="notice"><%= notice %></p>
     <div class="row" id="grid-show">
@@ -36,25 +40,17 @@
         <% end %>
       </div>
       <div class="col-lg-4">
-        <div class="container bg-light p-4 rounded-lg my-3">
-          <h6>Book this plane!</h6>
-          <!-- <form>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">From:</div>
-              </div>
-              <input type="text" class="form-control" id="frominput" placeholder="11/11/2020">
-            </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">To:</div>
-              </div>
-              <input type="text" class="form-control" id="toinput" placeholder="12/11/2020">
-            </div>
-            <button type="submit" class="btn btn-success mb-2">Book</button>
-          </form> -->
-        </div>
-        <div class="container bg-light p-4 rounded-lg">
+        <% if current_user.role == "renter" %>
+          <div class="container bg-light p-4 rounded-lg mt-3">
+            <h6>Book this plane!</h6>
+            <%= simple_form_for [@airplane,@booking] do |f| %>
+              <%= f.input :start_time %>
+              <%= f.input :end_time %>
+              <%= f.submit %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="container bg-light p-4 rounded-lg mt-3">
           <h3>Details</h3>
           <h6>
             <i class="fas fa-user-friends"><%= @airplane.capacity %></i>
@@ -62,7 +58,7 @@
             <i class="fas fa-star"><%= @airplane.rating %></i>
           </h6>
         </div>
-        <div class="container-fluid justify-content-between bg-light p-4 rounded-lg my-3">
+        <div class="container-fluid justify-content-between bg-light p-4 rounded-lg mt-3">
           <p>Share</p>
           <h3>
             <i class="fab fa-facebook-square"></i>
