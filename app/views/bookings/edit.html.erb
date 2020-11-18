@@ -1,0 +1,19 @@
+<!-- NAVBAR -->
+<%= render "shared/navbar" %>
+<!-- MAIN CONTENT -->
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 bg-light p-4 rounded-lg">
+      <h1 class="font-weight-bold">Edit your booking</h1><br>
+      <%= simple_form_for @booking do |f| %>
+        <%= f.input :start_time %>
+        <%= f.input :end_time %><br><br>
+        <%= f.submit 'Update my booking', class: "btn btn-primary" %>
+        <%= link_to 'Delete Booking', booking_path, method: :delete, class: "btn btn-danger my-2" %>
+        <%= link_to 'Cancel', bookings_path, class: "btn btn-outline-danger my-2" %>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
