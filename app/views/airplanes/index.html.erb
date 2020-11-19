@@ -1,35 +1,63 @@
-<%= render "shared/navbar" %>
-
-<!-- MAIN CONTENT -->
-<div class="container mt-4">
-  <p id="notice"><%= notice %></p>
-  <div class="row">
-    <div class="col-lg-12 m-2">
-      <h1 class="font-weight-bold">All our airplanes</h1>
-      <p>All our <%= @airplanes.count %> airplanes</p>
+<!-- NAVBAR -->
+<div class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid justify-content-between">
+    <%= link_to "🛩️ Fly Me Now", airplanes_path, class:"navbar-brand text-dark pl-4", style:"font-size: 40px;" %>
+    <div class="dropdown my-2 my-sm-0 mx-2">
+      <h3 class="my-0 nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="far fa-user-circle"></i>
+      </h3>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        <% if policy(Airplane).create? %>
+          <%= link_to "Add Airplane", new_airplane_path, class:"dropdown-item" %>
+        <% else %>
+          <%= link_to "My bookings", bookings_path, class:"dropdown-item" %>
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <% @airplanes.each do |airplane| %>
-        <div class="col-lg-4">
-          <div class="card m-2 shadow" style="width: 20rem;">
+</div>
+<!-- MAIN CONTENT -->
+<div class="container mt-4 mw-100">
+  <!-- <p id="notice"><%= notice %></p> -->
+  <div class="row margin-10">
+    <div class="col-lg-12 p-3">
+      <h1 class="font-weight-bold">All our airplanes</h1>
+      <p>All our <%= @airplanes.count %> airplanes</p>
+
+    </div>
+    <form class="col-lg-12 simple_form search justify-content-center p-3" action="/airplanes" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="search-form-control form-group">
+          <input class="form-control string required" type="text" placeholder="Search" name="model" value="<%= params[:model] %>" id="search_query" />
+          <button name="button" type="submit" class="btn btn-secondary btn-flat" style="width: 120px;">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+    </form>
+  </div>
+  <div class="row container-veronica">
+    <div class="cards p-3">
+      <% @airplanes.each do |airplane| %>
+        <div class="card d-flex flex-row shadow mr-3 rounded">
+          <div class="p-3">
             <% if airplane.photos.attached? %>
               <%= cl_image_tag airplane.photos.first.key, alt: "...", class:"card-img-top" %>
             <% else %>
-              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80" alt="" class="card-img-top">
+              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80" alt="" class="card-img-top" style="width: 200px; height: 140px; object-fit: cover;">
             <% end %>
-            <div class="card-body bg-light border-bottom">
-              <h5 class="card-title font-weight-bold"><%= airplane.model %></h5>
-              <!-- <p class="card-text"><#%= airplane.model %></p> TODO add location to airplane table GEOCODIN-->
-              <h6>
-                <i class="fas fa-user-friends"><%= airplane.capacity %></i>
-                <i class="fas fa-euro-sign px-2"><%= airplane.price %></i>
-                <i class="fas fa-star"><%= airplane.rating %></i>
-              </h6>
-            </div>
-            <div class="bg-white p-3 d-flex">
+          </div>
+          <div class="card-body bg-light">
+            <h5 class="card-title font-weight-bold"><%= airplane.model %></h5>
+            <!-- <p class="card-text"><#%= airplane.model %></p> TODO add location to airplane table GEOCODIN-->
+            <h6>
+              <i class="fas fa-user-friends"><%= airplane.capacity %></i>
+              <i class="fas fa-euro-sign px-2"><%= airplane.price %></i>
+              <i class="fas fa-star"><%= airplane.rating %></i>
+            </h6>
+            <div class="p-3 d-flex">
               <% unless policy(airplane).update? %>
-                <%= link_to "Fly me now", airplane_path(airplane.id), class:"btn btn-outline-primary" %>
+                <%= link_to "Fly me now", airplane_path(airplane.id), class:"btn btn-outline-secondary" %>
               <% end %>
               <% if policy(airplane).update? %>
                   <%= link_to "Edit", edit_airplane_path(airplane.id), class:"btn btn-outline-warning" %>
@@ -42,6 +70,8 @@
             </div>
           </div>
         </div>
-    <% end %>
+      <% end %>
+    </div>
+    <img class="mt-3 pr-3" id="map" src='https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/2.3381,48.8693,10.45,0,0/600x1000?access_token=pk.eyJ1IjoidmZsb3BlenAiLCJhIjoiY2tnd3FrNnpoMDlrMjJ6cnRubmtiNWY4cSJ9.wttHMntbS3AAWkqQxTfHzg'>
   </div>
 </div>
