@@ -50,10 +50,44 @@
         <div class="card d-flex flex-row shadow mr-3 rounded">
           <div class="p-3">
             <% if airplane.photos.attached? %>
-              <%= cl_image_tag airplane.photos.first.key, alt: "...", style:"width: 200px; height: 140px; object-fit: cover;"%>
+              <% if airplane.photos.count > 1 %>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <!-- <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  </ol> -->
+                  <div class="carousel-inner" style="width: 200px; height: 140px;">
+                    <div class="carousel-item active">
+                      <%= cl_image_tag airplane.photos.last.key, class:"d-block w-100", style:"height: 140px; object-fit: cover; object-position: center top;" %>
+                    </div>
+                    <% remaining_photos =  airplane.photos.limit(airplane.photos.count - 1) %>
+                    <% remaining_photos.each do |photo| %>
+                    <div class="carousel-item">
+                      <%= cl_image_tag photo.key, class:"d-block w-100", style:"height: 140px; object-fit: cover; object-position: center top;" %>
+                    </div>
+                    <% end %>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              <% else %>
+                <div class="banner-card" style="width: 200px; height: 140px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= cl_image_path airplane.photos.first.key %>'); background-size: cover; background-position: center;"></div>
+              <% end %>
             <% else %>
-              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80" alt="" style="width: 200px; height: 140px; object-fit: cover;">
+                <div class="banner-card" style="width: 200px; height: 140px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib); background-size: cover; background-position: center;"></div>
             <% end %>
+            <!-- <#% if airplane.photos.attached? %>
+              <#%= cl_image_tag airplane.photos.first.key, alt: "...", style:"width: 200px; height: 140px; object-fit: cover;"%>
+            <#% else %>
+              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80" alt="" style="width: 200px; height: 140px; object-fit: cover;">
+            <#% end %>-->
           </div>
           <div class="card-body bg-light">
             <h5 class="card-title font-weight-bold"><%= airplane.model %></h5>
