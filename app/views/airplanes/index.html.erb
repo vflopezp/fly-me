@@ -56,9 +56,9 @@
         <div class="card d-flex flex-row shadow mr-3 rounded">
           <div class="p-3">
             <% if airplane.photos.attached? %>
-              <%= cl_image_tag airplane.photos.first.key, alt: "...", class:"card-img-top" %>
+              <%= cl_image_tag airplane.photos.first.key, alt: "...", style:"width: 200px; height: 140px; object-fit: cover;"%>
             <% else %>
-              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80" alt="" class="card-img-top" style="width: 200px; height: 140px; object-fit: cover;">
+              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80" alt="" style="width: 200px; height: 140px; object-fit: cover;">
             <% end %>
           </div>
           <div class="card-body bg-light">
