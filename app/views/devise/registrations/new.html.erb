@@ -19,13 +19,13 @@
 
 
       <!-- Form info div -->
-      <div class="form-info">
-      <h2>Sign Up</h2>
+      <div class="form-info padding-fly">
+        <h2>Sign Up</h2>
 
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
 
-        <div class="form-inputs">
+        <div class="form-inputs maxopc">
           <div class="form-row">
             <div class="form-group col-md-4">
               <%= f.input :first_name, required: true, autofocus: true %>
@@ -66,7 +66,7 @@
 
         </div>
 
-        <div class="form-actions btn btn-light">
+        <div class="form-actions btn btn-light mb-2">
           <%= f.button :submit, "Sign Up" %>
         </div>
       <% end %>
