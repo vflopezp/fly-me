@@ -24,14 +24,23 @@
 }
 
 .btn {
+  color: white !important;
   width: 100%;
   border-radius: 8px;
   padding: auto 5px;
   font-weight: bold;
+  opacity: 0.6;
 }
 
 
 #new_user > div.form-actions.btn.btn-light > input {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.padding-fly{
+  background: rgba(51, 51, 51, 0.3);
+  padding:40px;
+  border-radius:16px;
+  color:white;
 }
