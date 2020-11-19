@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Airplane.destroy_all
-User.destroy_all
+# User.destroy_all
 Rating.destroy_all
 Booking.destroy_all
 puts "db is clean now"
