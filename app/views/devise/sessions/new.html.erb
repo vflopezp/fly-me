@@ -39,7 +39,7 @@
 
 
       <!-- Form info div -->
-        <div class="form-info padding-fly">
+        <div class="form-info">
         <h2>Log in</h2>
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-inputs">
@@ -54,8 +54,13 @@
                         input_html: { autocomplete: "current-password" } %>
             <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
           </div>
+<<<<<<< HEAD
           <div class="">
             <%= f.button :submit, "Log In",class:"btn btn-login forgot-link btn-light mb-2", style:"color:white;"%>
+=======
+          <div class="form-actions btn btn-light mb-3">
+            <%= f.button :submit, "Log In" %>
+>>>>>>> parent of ff90e0c... form background change
           </div>
         <% end %>
 
