@@ -39,10 +39,17 @@ class BookingsController < ApplicationController
   private
 
   def validate_booking_and_catch_errors
-    if @booking.start_time.between?(
-      @airplane.bookings.map {|b| b.start_time }.to_s, @airplane.bookings.map {|b| b.end_time }.to_s
-    ) == true
-      redirect_to airplanes_path, notice: "Sorry we cannot proceed with your request this airplane is booked during the selected dates"
+    if @airplane.bookings.count >= 1
+      if @booking.start_time.between?(
+        @airplane.bookings.map {|b| b.start_time }.to_s, @airplane.bookings.map {|b| b.end_time }.to_s
+      ) == true
+        redirect_to airplanes_path, notice: "Sorry we cannot proceed with your request this airplane is booked during the selected dates"
+      else
+        @booking.airplane = @airplane
+        @booking.renter = current_user
+        @booking.airplane.booked = true
+        catch_error
+      end
     else
       @booking.airplane = @airplane
       @booking.renter = current_user
