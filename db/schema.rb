@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_11_19_185053) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
+    t.float "lat"
+    t.float "long"
     t.string "address"
     t.float "latitude"
     t.float "longitude"
@@ -78,7 +80,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_185053) do
     t.string "first_name"
     t.string "last_name"
     t.string "passport_number"
-    t.string "role", default: "renter"
+    t.string "role"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
