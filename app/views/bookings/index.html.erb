@@ -6,6 +6,14 @@
     <div class="col-12">
       <h1 class="font-weight-bold">My Bookings</h1>
     <span>You have <%= @bookings.count %> Bookings</span><br><br>
+    <% if notice %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <p><%= notice %></p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% end %>
   <% @bookings.each do |booking| %>
       <div class="card mb-3" style="height: 500px;">
     <% if booking.airplane.photos.attached? %>
