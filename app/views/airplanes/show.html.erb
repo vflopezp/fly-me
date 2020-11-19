@@ -2,15 +2,11 @@
 <%= render "shared/navbar" %>
 <!-- MAIN CONTENT -->
 <% if @airplane.photos.attached? %>
-  <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @airplane.photos.first.key %>); background-size: cover; background-position: center;">
+  <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @airplane.photos.first.key %>); background-size: cover; background-position: center;"></div>
 <% else %>
-    <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib); background-size: cover; background-position: center;">
+    <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib); background-size: cover; background-position: center;"></div>
 <% end %>
   <div class="container">
-    
-    <p class="notice"><%= notice %></p>
-    <p class="notice"><%= notice %></p>
-
     <div class="row" id="grid-show">
       <div class="col-lg-8">
         <div class="container bg-light p-4 rounded-lg my-3">
