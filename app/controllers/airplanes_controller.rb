@@ -1,8 +1,9 @@
 class AirplanesController < ApplicationController
   before_action :set_airplane, only: %i[show edit update destroy]
   def index
-    if params[:model]
-      @airplanes = Airplane.where("model ILIKE ?", "%#{params[:model]}%")
+    if params[:query]
+      sql_query = "model @@ :query OR address @@ :query OR description @@ :query"
+      @airplanes = Airplane.where(sql_query, query: "%#{params[:query]}%")
     else
       @airplanes = Airplane.all
     end

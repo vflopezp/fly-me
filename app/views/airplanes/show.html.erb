@@ -2,15 +2,41 @@
 <%= render "shared/navbar" %>
 <!-- MAIN CONTENT -->
 <% if @airplane.photos.attached? %>
-  <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @airplane.photos.first.key %>); background-size: cover; background-position: center;">
+  <% if @airplane.photos.count > 1 %>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <!-- <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol> -->
+      <div class="carousel-inner" style="height: 70vh;">
+        <div class="carousel-item active">
+          <%= cl_image_tag @airplane.photos.last.key, class:"d-block w-100", style:"object-fit: cover; object-position: center top;" %>
+        </div>
+        <% remaining_photos =  @airplane.photos.limit(@airplane.photos.count - 1) %>
+        <% remaining_photos.each do |photo| %>
+        <div class="carousel-item">
+          <%= cl_image_tag photo.key, class:"d-block w-100", style:"object-fit: cover; object-position: center top;" %>
+        </div>
+        <% end %>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <!-- <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @airplane.photos.first.key %>); background-size: cover; background-position: center;"></div> -->
+  <% else %>
+    <div class="banner" style="height: 70vh; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= cl_image_path @airplane.photos.first.key %>'); background-size: cover; background-position: center;"></div>
+  <% end %>
 <% else %>
-    <div class="banner" id="banner-show" style="height: 350px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib); background-size: cover; background-position: center;">
+    <div class="banner" style="height: 70vh; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib); background-size: cover; background-position: center;"></div>
 <% end %>
   <div class="container">
-    
-    <p class="notice"><%= notice %></p>
-    <p class="notice"><%= notice %></p>
-
     <div class="row" id="grid-show">
       <div class="col-lg-8">
         <div class="container bg-light p-4 rounded-lg my-3">
