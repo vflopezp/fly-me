@@ -47,9 +47,28 @@
   font-weight: bold;
 }
 
+.btn {
+  background-color: transparent;
+  color: white;
+
+  border-radius: 8px;
+  font-weight: lighter;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover {
+  opacity: .8;
+}
+
 #new_user > div.form-actions.btn.btn-light.mb-3 > input {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-
+.padding-fly{
+  background: rgba(51, 51, 51, 0.3);
+  padding:40px;
+  border-radius:16px;
+  color:white;
+}

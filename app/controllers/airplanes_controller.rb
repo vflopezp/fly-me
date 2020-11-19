@@ -1,17 +1,20 @@
 class AirplanesController < ApplicationController
   before_action :set_airplane, only: %i[show edit update destroy]
   def index
-    if params[:model]
-      @airplanes = Airplane.where("model ILIKE ?", "%#{params[:model]}%")
+    if params[:query]
+      sql_query = "model @@ :query OR address @@ :query OR description @@ :query"
+      @airplanes = Airplane.where(sql_query, query: "%#{params[:query]}%")
     else
       @airplanes = Airplane.all
     end
-    # @markers = @airplanes.geocoded.map do |airplane|
-    #       {
-    #         lat: airplane.lat,
-    #         lng: airplane.long
-    #       }
-    # end
+    @markers = @airplanes.geocoded.map do |airplane|
+      {
+        lat: airplane.latitude,
+        lng: airplane.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { airplane: airplane }),
+        image_url: helpers.asset_url('https://www.pikpng.com/pngl/m/2-20957_logo-avion-png-clipart.png')
+      }
+    end
   end
 
   def show
