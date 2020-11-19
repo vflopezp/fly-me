@@ -13,14 +13,8 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @airplane = Airplane.find(params[:airplane_id])
-    @booking.airplane = @airplane
-    @booking.renter = current_user
     authorize @booking
-    if @booking.save
-      redirect_to airplane_path(@booking.airplane), notice: "Your booking has been created"
-    else
-      render 'airplanes/show'
-    end
+    validate_booking_and_catch_errors
   end
 
   def edit
@@ -43,6 +37,29 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def validate_booking_and_catch_errors
+    if @booking.start_time.between?(
+      @airplane.bookings.map {|b| b.start_time }.to_s, @airplane.bookings.map {|b| b.end_time }.to_s
+    ) == true
+      redirect_to airplanes_path, notice: "Sorry we cannot proceed with your request this airplane is booked during the selected dates"
+    else
+      @booking.airplane = @airplane
+      @booking.renter = current_user
+      @booking.airplane.booked = true
+      catch_error
+    end
+  end
+
+  def catch_error
+    if @booking.save
+      redirect_to bookings_path, notice: "Your booking has been created"
+    else
+      render 'airplanes/show'
+    end
+  rescue NoMethodError
+    redirect_to airplanes_path, notice: "Sorry we cannot proceed with your request please check the date entered"
+  end
 
   def booking_params
     params.require(:booking).permit(:start_time, :end_time, :renter, :airplane)

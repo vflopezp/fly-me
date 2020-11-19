@@ -2,10 +2,16 @@ class AirplanesController < ApplicationController
   before_action :set_airplane, only: %i[show edit update destroy]
   def index
     if params[:model]
-      @airplanes = Airplane.where("model LIKE ?", "%#{params[:model]}%")
+      @airplanes = Airplane.where("model ILIKE ?", "%#{params[:model]}%")
     else
       @airplanes = Airplane.all
     end
+    # @markers = @airplanes.geocoded.map do |airplane|
+    #       {
+    #         lat: airplane.lat,
+    #         lng: airplane.long
+    #       }
+    # end
   end
 
   def show
